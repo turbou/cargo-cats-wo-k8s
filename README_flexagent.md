@@ -9,4 +9,7 @@ contrast-flex agents list
 
 # Javaエージェントのアップデート
 contrast-flex agents update java
+
+# アートアタッチの停止
+contrast-flex auto-attach set false
 ```
