@@ -34,6 +34,8 @@ sed -i '' 's/contrast-cargo-cats-db/localhost/g' ./app.py
 # Amazon Linux 2023
 sed -i 's/contrast-cargo-cats-db/localhost/g' ./app.py
 gunicorn --bind 0.0.0.0:5001 --access-logfile - --error-logfile - --capture-output --log-level debug app:app
+# バックグラウンド
+nohup gunicorn --bind 0.0.0.0:5001 --access-logfile - --error-logfile - --capture-output --log-level debug app:app > gunicorn.log 2>&1 &
 ```
 
 ### image service
