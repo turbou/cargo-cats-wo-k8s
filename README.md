@@ -132,6 +132,28 @@ nohup java -Dorg.apache.commons.collections.enableUnsafeSerialization=true -jar 
 http://xxx.xxx.xxx.xxx:8081/  
 admin/password123
 
+### コンソール
+*8082*ポート
+```bash
+cd services/console-ui
+vim docker-compose.yml
+```
+
+```yaml
+version: '3.8'
+services:
+  python-app:
+    container_name: console-ui
+    build: .
+    ports:
+      - "8082:5000"
+```
+
+```bash
+docker-compose build --no-cache
+dokcer-compose up -d
+```
+
 ## 環境構築補足
 ### Amazon Linux 2023
 #### node18
