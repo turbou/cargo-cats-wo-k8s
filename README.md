@@ -152,7 +152,7 @@ services:
 ```bash
 sed -i 's|cargocats.localhost|172.31.46.152:8081|g' ./app.py
 docker-compose build --no-cache
-dokcer-compose up -d
+docker-compose up -d
 ```
 
 ## 環境構築補足
