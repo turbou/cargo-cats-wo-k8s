@@ -150,6 +150,7 @@ services:
 ```
 
 ```bash
+sed -i 's|cargocats.localhost|localhost:8081|g' ./app.py
 docker-compose build --no-cache
 dokcer-compose up -d
 ```
