@@ -45,6 +45,8 @@ cd services/imageservice
 dotnet restore
 dotnet publish -c Release -o out
 dotnet ./out/imageservice.dll
+# バックグラウンド
+nohup dotnet ./out/imageservice.dll > imageservice.log 2>&1 &
 ```
 **もしも下のようなエラーが出たら**
 ```bash
