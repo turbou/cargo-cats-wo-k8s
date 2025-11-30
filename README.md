@@ -129,6 +129,9 @@ java -Dorg.apache.commons.collections.enableUnsafeSerialization=true -jar ./targ
 nohup java -Dorg.apache.commons.collections.enableUnsafeSerialization=true -jar ./target/frontgateservice-0.0.1-SNAPSHOT.jar > frontservice.log 2>&1 &
 ```
 
+http://xxx.xxx.xxx.xxx:8081/  
+admin/password123
+
 ## 環境構築補足
 ### Amazon Linux 2023
 #### node18
