@@ -33,6 +33,7 @@ pip install gunicorn
 sed -i '' 's/contrast-cargo-cats-db/localhost/g' ./app.py
 # Amazon Linux 2023
 sed -i 's/contrast-cargo-cats-db/localhost/g' ./app.py
+# フォアグラウンド
 gunicorn --bind 0.0.0.0:5001 --access-logfile - --error-logfile - --capture-output --log-level debug app:app
 # バックグラウンド
 nohup gunicorn --bind 0.0.0.0:5001 --access-logfile - --error-logfile - --capture-output --log-level debug app:app > gunicorn.log 2>&1 &
@@ -44,6 +45,7 @@ nohup gunicorn --bind 0.0.0.0:5001 --access-logfile - --error-logfile - --captur
 cd services/imageservice
 dotnet restore
 dotnet publish -c Release -o out
+# フォアグラウンド
 dotnet ./out/imageservice.dll
 # バックグラウンド
 nohup dotnet ./out/imageservice.dll > imageservice.log 2>&1 &
@@ -70,7 +72,10 @@ pip install --no-cache-dir -r requirements.txt
 export FLASK_APP=app.py
 export FLASK_ENV=development
 export PYTHONUNBUFFERED=1
+# フォアグラウンド
 gunicorn --bind 0.0.0.0:5000 --workers 4 --timeout 120 app:app
+# バックグラウンド
+nohup gunicorn --bind 0.0.0.0:5000 --workers 4 --timeout 120 app:app > docservice.log 2>&1 &
 ```
 ※ gunicornの5000ポートでの起動でエラーになる場合、MacのAirPlayレシーバーが原因だったりするので  
 Macのシステム設定で、AirPlayレシーバで設定を検索してオフにしてください。
@@ -84,7 +89,10 @@ sed -i '' 's/contrast-cargo-cats-db/localhost/g' ./src/main/resources/applicatio
 # Amazon Linux 2023の場合
 sed -i 's/contrast-cargo-cats-db/localhost/g' ./src/main/resources/application.properties
 mvn clean package -Dmaven.test.skip=true
+# フォアグラウンド
 java -jar ./target/dataservice-0.0.1-SNAPSHOT.jar
+# バックグラウンド
+nohup java -jar ./target/dataservice-0.0.1-SNAPSHOT.jar > dataservice.log 2>&1 &
 ```
 
 ### label service
@@ -92,7 +100,10 @@ java -jar ./target/dataservice-0.0.1-SNAPSHOT.jar
 ```bash
 cd services/labelservice
 npm install --production
+# フォアグラウンド
 npm start
+# バックグラウンド
+nohup npm start > labelservice.log 2>&1 &
 ```
 
 ### front service
@@ -112,7 +123,10 @@ sed -i 's|http://webhookservice:5000|http://localhost:5001|g' ./src/main/resourc
 sed -i 's|http://labelservice:3000|http://localhost:3000|g' ./src/main/resources/application.properties
 sed -i 's|http://docservice:5000|http://localhost:5000|g' ./src/main/resources/application.properties
 mvn clean package -Dmaven.test.skip=true
+# フォアグラウンド
 java -Dorg.apache.commons.collections.enableUnsafeSerialization=true -jar ./target/frontgateservice-0.0.1-SNAPSHOT.jar
+# バックグラウンド
+nohup java -Dorg.apache.commons.collections.enableUnsafeSerialization=true -jar ./target/frontgateservice-0.0.1-SNAPSHOT.jar > frontservice.log 2>&1 &
 ```
 
 ## 環境構築補足
